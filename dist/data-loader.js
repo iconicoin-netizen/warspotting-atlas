@@ -14,7 +14,7 @@ window.loadAtlasData = async function () {
   try { cache = await caches.open(cacheName); } catch {}
   try {
     const endpoint = ['localhost', '127.0.0.1'].includes(location.hostname) ? url : '/live-data.json';
-    const response = await fetch(endpoint, { cache: 'no-store', signal: AbortSignal.timeout(35000) });
+    const response = await fetch(endpoint, { cache: 'no-store', signal: AbortSignal.timeout(8000) });
     if (!response.ok) throw new Error('Latest snapshot unavailable');
     const rows = await response.json();
     if (!valid(rows)) throw new Error('Latest snapshot is invalid');

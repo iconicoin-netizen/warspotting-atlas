@@ -80,7 +80,7 @@
     'Zoom in':['Zoom in','Збільшити'], 'Zoom out':['Zoom out','Зменшити'],
     'Close popup':['Close popup','Закрити вікно'], 'Map':['Map','Мапа'],
   };
-  let language='zh';
+  let language='en';
   try { const saved=localStorage.getItem('atlas-language'); if(['zh','en','uk'].includes(saved))language=saved; } catch {}
   function t(value) {
     const text=String(value),key=text.trim();
