@@ -37,7 +37,7 @@ Related scraper: [lazar-bit/automated-warspotting-scraper](https://github.com/la
 ## Features
 
 - Combined multi-select filters: OR within a field, AND across fields.
-- West-facing category icons with optional unit or status colors.
+- West-facing icons with distinct equipment-category colors, or optional unit/status coloring. Map markers, list icons, and legend icons share the same category colors.
 - Zoom-sensitive symbol size and opacity, record details, monthly distribution, and fullscreen controls.
 - Records without coordinates remain in the searchable list and summary counts.
 
