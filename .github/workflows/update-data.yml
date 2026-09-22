@@ -1,0 +1,53 @@
+name: Update WarSpotting data
+
+on:
+  schedule:
+    - cron: '23 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: warspotting-data-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.repository == 'iconicoin-netizen/warspotting-atlas'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out the main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test snapshot validation and failure handling
+        run: node --test scripts/update-data.test.mjs
+      - name: Fetch and validate the full dataset
+        run: node scripts/update-data.mjs
+      - name: Commit the validated snapshot
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add dist/data.json dist/data-meta.json
+          if git diff --cached --quiet; then
+            echo 'No snapshot changes.'
+            exit 0
+          fi
+          git commit -m "Update WarSpotting data ($(date -u +%F))"
+          git push origin HEAD:main
+      - name: Write run summary
+        run: |
+          echo '## WarSpotting data update' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The validated snapshot and refresh metadata were committed to main.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The public atlas reads the latest GitHub data when opened.' >> "$GITHUB_STEP_SUMMARY"
+          echo '```json' >> "$GITHUB_STEP_SUMMARY"
+          cat dist/data-meta.json >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
