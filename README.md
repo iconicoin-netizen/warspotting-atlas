@@ -4,6 +4,8 @@
 
 An interactive map of documented Russian equipment losses from WarSpotting. Filter by date, equipment category, unit, and loss status. Equipment artwork faces west in the map, legend, and record list. The website supports Chinese, English, and Ukrainian, with a language selector beside the title. The choice is saved in the browser. Filters, statistics, legends, details and offline controls are localized; source model names, unit names, locations and event dates remain unchanged. Ukrainian mode prioritizes Ukrainian basemap labels where available. Repository documentation and automation are in English.
 
+English is the default interface language for new visitors. A previously saved language selection is still respected.
+
 ## Automatic data updates
 
 GitHub Actions runs **daily at 01:23 UTC / 09:23 China Standard Time**. Start a manual run from **Actions → Update WarSpotting data → Run workflow**. GitHub may delay scheduled runs. Public-repository schedules can be disabled after 60 days without repository activity; successful daily metadata commits normally keep this repository active. Check Actions if updates stop.
@@ -38,7 +40,8 @@ Related scraper: [lazar-bit/automated-warspotting-scraper](https://github.com/la
 
 - Combined multi-select filters: OR within a field, AND across fields.
 - West-facing icons with distinct equipment-category colors, or optional unit/status coloring. Map markers, list icons, and legend icons share the same category colors.
-- Zoom-sensitive symbol size and viewport-based opacity. Near-coincident icons of the same equipment type use a gradual overlap curve: dense groups become darker progressively instead of saturating after a few records. Counts are recomputed after panning, zooming, resizing, and filtering.
+- Zoom-sensitive symbol size and viewport-based opacity. Near-coincident icons in the active legend group (equipment, unit, or status) use a gradual overlap curve: dense groups become darker progressively instead of saturating after a few records. All three modes share the same diffusion and opacity rules. Counts are recomputed after changing the legend mode, panning, zooming, resizing, and filtering.
+- Basemap and offline-cache setup do not block record rendering. An unavailable live snapshot falls back to validated cached or bundled data after an eight-second request timeout; diffusion failures do not interrupt markers, lists, or statistics.
 - At metric scales of 30 km and above, near-coincident symbols across equipment categories preserve the original single-symbol opacity as the composite baseline. Only the additional overlap concentration is weighted down: `0.9 * (30 km / scale)^0.15`, with a 0.5 floor. The target composite opacity is converted back into per-symbol alpha, so extra records still deepen the color without reducing the group below its single-symbol baseline. Isolated symbols, views at 20 km and below, and geographic diffusion retain their existing behavior.
 - Geographic color diffusion follows the displayed metric scale: no diffusion at 10 km and below, light diffusion with a 3 km support radius at 20 km, and medium diffusion with a fixed 6 km support radius at 30 km and above. Gaussian density fields mix colors in optical absorption space before compositing, with no luminous ring. The radius uses each record's latitude and the map projection; zooming out reduces its screen size. Density opacity is capped at 38%, beneath the original equipment symbols. These distances are visual styling parameters, not equipment ranges or location uncertainty.
 - Record details, monthly distribution, and fullscreen controls.
