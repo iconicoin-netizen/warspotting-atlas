@@ -2,7 +2,7 @@
 
 [Open the public atlas](https://warspotting-atlas.pages.dev/) · [Data update workflow](https://github.com/iconicoin-netizen/warspotting-atlas/actions/workflows/update-data.yml)
 
-An interactive map of documented Russian equipment losses from WarSpotting. Filter by date, equipment category, unit, and loss status. Equipment artwork faces west in the map, legend, and record list. The website interface remains in Chinese; repository documentation and automation are in English.
+An interactive map of documented Russian equipment losses from WarSpotting. Filter by date, equipment category, unit, and loss status. Equipment artwork faces west in the map, legend, and record list. The website supports Chinese, English, and Ukrainian, with a language selector beside the title. The choice is saved in the browser. Filters, statistics, legends, details and offline controls are localized; source model names, unit names, locations and event dates remain unchanged. Ukrainian mode prioritizes Ukrainian basemap labels where available. Repository documentation and automation are in English.
 
 ## Automatic data updates
 
@@ -17,7 +17,7 @@ The updater reads the [official WarSpotting API](https://ukr.warspotting.net/api
 - Successful runs commit `dist/data.json` and `dist/data-meta.json`, including the UTC refresh time, record count, latest event date, and SHA-256 checksum.
 - The workflow uses the repository-scoped, short-lived `GITHUB_TOKEN` with `contents: write`. No personal access token is needed. Update runs are serialized. If a concurrent human commit prevents the push, the run fails safely and can be rerun.
 
-The live website reads the latest committed GitHub data each time it opens. A validated browser cache is the first fallback, followed by the bundled snapshot if GitHub is unavailable. The source section identifies which snapshot was loaded. Refresh an already open tab to load new data. This connection does **not** automatically deploy HTML, CSS, or JavaScript changes.
+The live website reads the latest committed GitHub data each time it opens through a fixed Cloudflare endpoint (`/live-data.json`). This avoids requiring visitors to connect directly to raw.githubusercontent.com. Edge responses may be cached for up to five minutes. The narrowly routed `dist/_worker.js` forwards only this public dataset; all other files remain static. Localhost reads the public GitHub URL directly. A validated browser cache is the first fallback, followed by the bundled snapshot if GitHub is unavailable. The source section identifies which snapshot was loaded. Refresh an already open tab to load new data. This connection does **not** automatically deploy HTML, CSS, or JavaScript changes.
 
 Run locally with Node.js 22 or later from the repository root; no npm dependencies are required:
 
