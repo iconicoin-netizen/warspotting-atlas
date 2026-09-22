@@ -38,7 +38,8 @@ Related scraper: [lazar-bit/automated-warspotting-scraper](https://github.com/la
 
 - Combined multi-select filters: OR within a field, AND across fields.
 - West-facing icons with distinct equipment-category colors, or optional unit/status coloring. Map markers, list icons, and legend icons share the same category colors.
-- Zoom-sensitive symbol size and opacity, record details, monthly distribution, and fullscreen controls.
+- Zoom-sensitive symbol size and viewport-based opacity. Near-coincident icons of the same equipment type use a gradual overlap curve: dense groups become darker progressively instead of saturating after a few records. Counts are recomputed after panning, zooming, resizing, and filtering.
+- Record details, monthly distribution, and fullscreen controls.
 - Records without coordinates remain in the searchable list and summary counts.
 
 ## Maps and offline use
