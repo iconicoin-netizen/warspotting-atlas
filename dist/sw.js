@@ -1,5 +1,5 @@
 'use strict';
-const APP_CACHE='atlas-app-v9-equipment-colors',MAP_CACHE='atlas-ukraine-roads-20260921-z11-v1';
+const APP_CACHE='atlas-app-v10-progressive-opacity',MAP_CACHE='atlas-ukraine-roads-20260921-z11-v1';
 const APP_FILES=['./','index.html','style.css','app.js','i18n.js','data-loader.js','offline-map.js','data.json','online-style.json','map/manifest.json','vendor/equipment-icons.js','vendor/leaflet.js','vendor/leaflet.css','vendor/protomaps-leaflet.js','vendor/pmtiles.js','vendor/maplibre-gl.js','vendor/maplibre-gl.css','vendor/leaflet-maplibre-gl.js'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(APP_CACHE).then(c=>c.addAll(APP_FILES)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('atlas-app-')&&k!==APP_CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
