@@ -1,12 +1,16 @@
-// A fixed, public upstream keeps browser visits independent of GitHub connectivity.
-// Only /live-data.json invokes this function; all other assets remain static.
-const SOURCE = 'https://raw.githubusercontent.com/iconicoin-netizen/warspotting-atlas/main/dist/data.json';
+// Fixed public upstreams keep browser visits independent of direct GitHub access.
+const ROOT = 'https://raw.githubusercontent.com/iconicoin-netizen/warspotting-atlas/main/dist/';
+const LIVE_PATHS = new Map([
+  ['/live-data.json', 'data.json'],
+  ['/live-overlays/uacontrol-frontline.geojson', 'overlays/uacontrol-frontline.geojson'],
+]);
 export default {
   async fetch(request, env) {
-    if (new URL(request.url).pathname !== '/live-data.json') return env.ASSETS.fetch(request);
+    const sourcePath = LIVE_PATHS.get(new URL(request.url).pathname);
+    if (!sourcePath) return env.ASSETS.fetch(request);
     if (!['GET', 'HEAD'].includes(request.method)) return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
     try {
-      const upstream = await fetch(SOURCE, {
+      const upstream = await fetch(ROOT + sourcePath, {
         headers: { Accept: 'application/json', 'User-Agent': 'WarSpottingAtlas/1.0' },
         signal: AbortSignal.timeout(30000),
         cf: { cacheEverything: true, cacheTtlByStatus: { '200-299': 300, '400-599': 0 } },

@@ -1,1 +1,1 @@
-{"version":1,"include":["/live-data.json"],"exclude":[]}
+{"version":1,"include":["/live-data.json","/live-overlays/*"],"exclude":[]}

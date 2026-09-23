@@ -27,3 +27,15 @@ main{height:100dvh;min-height:0}.section-head{padding:15px 16px 7px;flex-shrink:
 
 /* Keep the language picker to the right of the title at every viewport size. */
 .section-head{display:grid;grid-template-columns:minmax(0,1fr) 94px;gap:10px;align-items:center}.section-head .sidebar-title{font-size:15px;line-height:1.45;letter-spacing:0;overflow-wrap:anywhere}#language-select{width:94px;font-size:12px;padding:7px 4px;background:#fff;cursor:pointer}.results-head{gap:6px;flex-shrink:0}.results-head #reset{font-size:11px;flex-shrink:0}.record-bottom>span:nth-child(2){max-width:100px;overflow:hidden;text-overflow:ellipsis}.legend-panel{width:230px}html[lang=uk] .legend-entry,html[lang=en] .legend-entry{align-items:flex-start}html[lang=uk] .legend-entry span,html[lang=en] .legend-entry span{line-height:1.25}.metrics span{overflow-wrap:anywhere}@media(max-width:820px){.section-head .sidebar-title{font-size:17px}.legend-panel{width:215px}}@media(max-width:400px){.section-head .sidebar-title{font-size:15px}.section-head{gap:8px}.legend-panel{width:200px}}
+
+/* Independently sourced tactical context layers. */
+.overlay-control{padding:7px 16px;border-bottom:1px solid #edf0f2;color:#627985;font-size:11px;display:flex;align-items:center;justify-content:space-between;gap:8px}.overlay-control label{display:flex;align-items:center;gap:5px;margin:0;font-size:11px;cursor:pointer;white-space:nowrap}.overlay-control input{width:12px;height:12px;margin:0;padding:0}.overlay-control small{font-size:10px;font-variant-numeric:tabular-nums}.overlay-control p{margin:0;font-size:9px;white-space:nowrap}.overlay-popup{min-width:190px}.overlay-popup>strong{display:block;font-size:14px;margin-bottom:7px}.overlay-popup>div{display:grid;grid-template-columns:72px 1fr;gap:6px;margin:4px 0;font-size:12px}.overlay-popup>div b{color:#627985}.overlay-popup>a{display:inline-block;margin-top:7px;font-size:12px}.map-stage:fullscreen .overlay-control,.map-stage.is-fullscreen .overlay-control{position:absolute;top:12px;left:12px;z-index:520;background:#ffffffe8;border-radius:5px;max-width:245px;padding:7px 10px}@media(max-width:820px){.overlay-control{width:100%;box-sizing:border-box}}
+
+.overlay-control a{color:inherit}.overlay-popup{max-width:320px;max-height:280px;overflow:auto}.overlay-popup>div span{overflow-wrap:anywhere}
+
+/* Contact-line widths follow geographic scale, including SVG zoom transforms. */
+.atlas-contact-line{vector-effect:none}
+
+/* Fullscreen controls return immediately on pointer or keyboard activity. */
+.map-stage.ui-idle>:not(#map),.map-stage.ui-idle .leaflet-control-container,.map-stage.ui-idle .leaflet-popup-pane,.map-stage.ui-idle .leaflet-tooltip-pane{opacity:0!important;pointer-events:none!important}
+.map-stage.ui-idle,.map-stage.ui-idle *{cursor:none!important}

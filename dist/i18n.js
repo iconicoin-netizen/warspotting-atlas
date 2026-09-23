@@ -79,7 +79,33 @@
     '地图清单加载失败':['Could not load the map manifest','Не вдалося завантажити перелік файлів мапи'],
     'Zoom in':['Zoom in','Збільшити'], 'Zoom out':['Zoom out','Зменшити'],
     'Close popup':['Close popup','Закрити вікно'], 'Map':['Map','Мапа'],
+    '地图图层':['Map layers','Шари мапи'], 'OSM 防御工事':['OSM fortifications','Укріплення OSM'],
+    'UAControlMap 战线':['UAControlMap frontline','Лінія фронту UAControlMap'],
+    'UAControlMap 单位（模糊位置）':['UAControlMap units (coarse locations)','Підрозділи UAControlMap (приблизні місця)'],
+    '单位位置约化到约 10 km；默认关闭。':['Unit locations are coarsened to about 10 km and hidden by default.','Місця підрозділів огрублено приблизно до 10 км і типово приховано.'],
+    '加载中…':['Loading…','Завантаження…'], '项':['items','об’єктів'], '不可用':['Unavailable','Недоступно'],
+    '未命名要素':['Unnamed feature','Об’єкт без назви'], '查看来源 ↗':['View source ↗','Переглянути джерело ↗'],
+    '类型':['Type','Тип'], '建造日期':['Construction date','Дата спорудження'], '来源':['Source','Джерело'],
+    '说明':['Description','Опис'], '阵营':['Side','Сторона'], '乌克兰':['Ukraine','Україна'], '俄罗斯':['Russia','Росія'],
+    '单位编号':['Unit number','Номер військової частини'], '资料日期':['Source date','Дата джерела'],
+    '位置精度':['Location precision','Точність місця'], '约 10 km':['about 10 km','приблизно 10 км'],
   };
+  dictionary["UAControlMap 重要区域"]=["UAControlMap important areas", "Важливі райони UAControlMap"];
+  dictionary["UAControlMap 单位名录"]=["UAControlMap unit directory", "Перелік підрозділів UAControlMap"];
+  dictionary["保留原名与编号，不含部署坐标。"]=["Original names and numbers; no deployment coordinates.", "Оригінальні назви й номери; без координат розгортання."];
+  dictionary["搜索单位名称或编号"]=["Search unit name or number", "Пошук за назвою або номером підрозділу"];
+  dictionary["关闭"]=["Close", "Закрити"];
+  dictionary["原始图层"]=["Source layer", "Вихідний шар"];
+  dictionary["说明"]=["Description", "Опис"];
+  dictionary["来源"]=["Source", "Джерело"];
+  dictionary["乌克兰"]=["Ukraine", "Україна"];
+  dictionary["俄罗斯"]=["Russia", "Росія"];
+  dictionary["不可用"]=["Unavailable", "Недоступно"];
+  dictionary["加载中…"]=["Loading...", "Завантаження…"];
+  dictionary["UAControlMap 保留原始边界与配色。重要区域包含历史进攻范围，不全是当前控制区。单位名录保留原名与编号，不含部署坐标。图层与损失记录独立。"]=["UAControlMap: original boundaries and colors. Important Areas includes historical offensives, not just current control. The unit directory preserves original names and numbers without deployment coordinates. Layers remain separate from loss records.", "UAControlMap: оригінальні межі й кольори. Важливі райони включають історичні наступи, а не лише поточний контроль. Перелік зберігає назви й номери без координат. Шари відокремлені від записів втрат."];
+  dictionary["UAControlMap 接触线"]=["UAControlMap contact line","Лінія зіткнення UAControlMap"];
+  dictionary["UAControlMap 接触线保留原始坐标与配色，独立于装备损失记录。"]=["UAControlMap contact lines retain original coordinates and colors, separate from equipment loss records.","Лінії зіткнення UAControlMap зберігають вихідні координати й кольори окремо від записів втрат техніки."];
+  dictionary["接触线"]=["Contact line","Лінія зіткнення"];
   let language='en';
   try { const saved=localStorage.getItem('atlas-language'); if(['zh','en','uk'].includes(saved))language=saved; } catch {}
   function t(value) {
