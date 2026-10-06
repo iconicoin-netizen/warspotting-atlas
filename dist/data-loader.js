@@ -1,5 +1,5 @@
 'use strict';
-// Render validated local data immediately; refresh the next-visit cache in background.
+// Render local data immediately; expose validated refreshes to the active page.
 window.loadAtlasData = async function () {
   const url = 'https://raw.githubusercontent.com/iconicoin-netizen/warspotting-atlas/main/dist/data.json';
   const bundledURL = new URL('data.json', location.href).href;
@@ -19,20 +19,25 @@ window.loadAtlasData = async function () {
   }
   async function online() {
     const endpoint = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname) ? url : '/live-data.json';
-    const response = await fetch(endpoint, {cache: 'no-cache', signal: AbortSignal.timeout(8000)});
+    const response = await fetch(endpoint, {cache: 'no-cache', signal: AbortSignal.timeout(30000)});
     const rows = await read(response.clone());
     try { await cache?.put(url, response); } catch {}
-    return {records: rows, label: '最新在线数据'};
+    return {records: rows, label: '最新在线数据', signature: JSON.stringify(rows)};
   }
+  let pending;
+  window.refreshAtlasData = () => {
+    if (navigator.onLine === false) return Promise.resolve(null);
+    if (!pending) pending = online().catch(error => {
+      console.info('Keeping local snapshot:', error.message);
+      return null;
+    }).finally(() => { pending = null; });
+    return pending;
+  };
   function background() {
-    window.atlasDataRefresh = navigator.onLine === false ? Promise.resolve(null) :
-      new Promise(resolve => setTimeout(resolve, 0)).then(online).catch(error => {
-        console.info('Keeping local snapshot:', error.message);
-        return null;
-      });
+    window.atlasDataRefresh = new Promise(resolve => setTimeout(resolve, 0)).then(window.refreshAtlasData);
   }
   for (const [key, label] of [[url, '上次保存的数据'], [bundledURL, '内置数据快照']]) {
-    try { const rows = await read(await cache?.match(key)); background(); return {records: rows, label}; } catch {}
+    try { const rows = await read(await cache?.match(key)); background(); return {records: rows, label, signature: JSON.stringify(rows)}; } catch {}
   }
   try {
     const response = await fetch(bundledURL, {signal: AbortSignal.timeout(8000)});
@@ -40,6 +45,6 @@ window.loadAtlasData = async function () {
     // Keep bundled data available offline without a second service-worker download.
     try { await cache?.put(bundledURL, response); } catch {}
     background();
-    return {records: rows, label: '内置数据快照'};
+    return {records: rows, label: '内置数据快照', signature: JSON.stringify(rows)};
   } catch { return online(); }
 };

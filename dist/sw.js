@@ -1,5 +1,5 @@
 'use strict';
-const APP_CACHE='atlas-app-v24-fullscreen-idle',MAP_CACHE='atlas-ukraine-roads-20260921-z11-v1';
+const APP_CACHE='atlas-app-v25-live-refresh',MAP_CACHE='atlas-ukraine-roads-20260921-z11-v1';
 const APP_FILES=['./','index.html','style.css','app.js','map-ink.js','overlays.js','i18n.js','data-loader.js','offline-map.js','online-style.json','map/manifest.json','overlays/uacontrol-frontline.geojson','overlays/overlay-meta.json','vendor/equipment-icons.js','vendor/leaflet.js','vendor/leaflet.css','vendor/protomaps-leaflet.js','vendor/pmtiles.js'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(APP_CACHE).then(cache=>cache.addAll(APP_FILES)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('atlas-app-')&&key!==APP_CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
