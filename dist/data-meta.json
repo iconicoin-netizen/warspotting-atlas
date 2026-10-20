@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "source": "https://ukr.warspotting.net/api/losses/russia/",
-  "fetched_at": "2026-10-19T06:19:52.557Z",
-  "record_count": 23760,
-  "located_count": 14662,
-  "latest_event_date": "2026-10-17",
-  "sha256": "8e2924d9278464536349ab7e6def8c55d261429aa6e9db59b4d809a41e902273",
-  "added_records": 2,
+  "fetched_at": "2026-10-20T06:08:34.441Z",
+  "record_count": 23771,
+  "located_count": 14666,
+  "latest_event_date": "2026-10-19",
+  "sha256": "1fac783b39a943637abe815e3dc79358d9158978b803e0f42ec24585d564f404",
+  "added_records": 11,
   "removed_records": 0
 }
